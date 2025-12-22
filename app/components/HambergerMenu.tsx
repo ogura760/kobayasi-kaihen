@@ -1,45 +1,64 @@
 "use client";
 
 import { useState } from "react";
-
-const sns = { 
-    x: "https://x.com/your_x_account", 
-    instagram: "https://www.instagram.com/syunsuke_0522?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-    linkedin: "https://www.linkedin.com/in/your_linkedin_account", 
-  };
+import Link from "next/link";
+import { HiOutlineChevronRight, HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
+import { HamburgerMenuEffect } from "./HamburgerMenuEffect"; 
 
 export default function HamburgerMenu() {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      {/* ハンバーガーボタン */}
-      <button className="humbergerbutton"
-        onClick={() => setOpen(!open)}
-       aria-label="メニュー切り替え"
+      {/*メニューボタン */}
+      <button
+        onClick={() => setOpen(prev => !prev)}
+        className="md:hidden text-[#8E7D73] p-2"
+        aria-label="メニュー"
       >
-        {open ? "✕" : "☰"}
+        {open ? <HiOutlineX size={28} /> : <HiOutlineMenuAlt3 size={28} />}
       </button>
 
-      {/* オーバーレイ（背景） */}
+      {/* オーバーレイ */}
       {open && (
-        <div className="overlay"
+        <div
+          className="fixed inset-0 bg-black/40 z-40"
           onClick={() => setOpen(false)}
         />
       )}
 
-      {/* スライドメニュー */}
-        <nav className={`menu ${open ? "open" : ""}`}>
-            <ul className="menulist">
-                <li><a href="/">トップページ</a></li>
-                <li><a href="/history">過去の歴史</a></li>
-                <li><a href="/blog">ブログ</a></li>
-                <li><a href="/contact">お問い合わせ</a></li>
-                <li><a href={sns.x} target="_blank" rel="noopener noreferrer">X</a></li>
-                <li><a href={sns.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></li>
-                <li><a href={sns.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-            </ul>
-        </nav>
+      {/* ✅ 上から下にスライドするメニュー */}
+
+        <HamburgerMenuEffect open={open}>
+          <div className="flex flex-col gap-6">
+            <Link
+              href="#about"
+              onClick={() => setOpen(false)}
+              className="text-lg font-medium flex items-center justify-between"
+            >
+              自己紹介 <HiOutlineChevronRight />
+            </Link>
+
+            <Link
+              href="/records"
+              onClick={() => setOpen(false)}
+              className="text-lg font-medium flex items-center justify-between"
+            >
+              活動記録 <HiOutlineChevronRight />
+            </Link>
+
+            <Link
+              href="/contact"
+              onClick={() => setOpen(false)}
+              className="text-lg font-medium flex items-center justify-between"
+            >
+              お問い合わせ <HiOutlineChevronRight />
+            </Link>
+          </div>
+        </HamburgerMenuEffect>
+
+
+
     </>
   );
 }
