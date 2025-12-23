@@ -13,6 +13,7 @@ import {
 } from 'react-icons/hi';
 // ナビゲーション用のクライアントコンポーネントをインポート（後述）
 import Navigation from '../components/Navigation'; 
+import HamburgerMenu from "../components/HambergerMenu";//12/22 追加　小倉
 
 interface RecordItem {
   id: number;
@@ -53,9 +54,24 @@ export default async function RecordsPage() {
   return (
     <div className="min-h-screen bg-[#FDFBF9] text-[#5C544E] font-sans selection:bg-[#F3E5E3]">
       
-      {/* 1. ヘッダー（ナビゲーション） */}
-      {/* ※再利用性を高めるため、Navigationコンポーネントとして分離することを推奨します */}
-      <Navigation />
+      {/* --- 1. ヘッダー（トップページと共通） --- */}
+      <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-[#F2EDE9]">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <Link href="/" className="text-xl md:text-2xl font-serif tracking-widest text-[#8E7D73] font-semibold">
+            中条 俊介 ポートフォリオ
+          </Link>
+
+          <nav className="hidden md:flex items-center gap-10 text-sm font-bold tracking-widest">
+            <Link href="/#about" className="hover:text-[#C5A59E] transition-colors">自己紹介</Link>
+            <Link href="/records" className="hover:text-[#C5A59E] transition-colors">活動記録</Link>
+            <Link href="/contact" className="text-[#C5A59E] transition-colors">お問い合わせ</Link>
+          </nav>
+
+        {/* スマホ用オーバーレイメニュー */}
+        {/*HambergerMenu.tsx,HamburgerMenuEffect.tsxで管理している*/}
+          <HamburgerMenu />
+        </div>
+      </header>
 
       <main className="pt-32 pb-20">
         {/* 2. パンくずリスト */}

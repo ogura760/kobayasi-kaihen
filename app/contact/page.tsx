@@ -13,6 +13,8 @@ import {
   HiOutlineChevronLeft 
 } from "react-icons/hi";
 
+import HamburgerMenu from "../components/HambergerMenu";//12/22 追加　小倉
+
 export default function ContactPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -74,20 +76,12 @@ export default function ContactPage() {
             <Link href="/contact" className="text-[#C5A59E] transition-colors">お問い合わせ</Link>
           </nav>
 
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-[#8E7D73] p-2" aria-label="メニュー">
-            {isOpen ? <HiOutlineX size={28} /> : <HiOutlineMenuAlt3 size={28} />}
-          </button>
-        </div>
-
         {/* スマホ用オーバーレイメニュー */}
-        {isOpen && (
-          <div className="absolute top-20 left-0 w-full bg-white border-b border-[#F2EDE9] p-8 md:hidden flex flex-col gap-6 animate-in slide-in-from-top duration-300">
-            <Link href="/#about" onClick={() => setIsOpen(false)} className="text-lg font-medium flex items-center justify-between">自己紹介 <HiOutlineChevronRight /></Link>
-            <Link href="/records" onClick={() => setIsOpen(false)} className="text-lg font-medium flex items-center justify-between">活動記録 <HiOutlineChevronRight /></Link>
-            <Link href="/contact" onClick={() => setIsOpen(false)} className="text-lg font-medium flex items-center justify-between">お問い合わせ <HiOutlineChevronRight /></Link>
-          </div>
-        )}
+        {/*HambergerMenu.tsx,HamburgerMenuEffect.tsxで管理している*/}
+          <HamburgerMenu />
+        </div>
       </header>
+
 
       {/* --- 2. メインコンテンツ --- */}
       <main className="pt-32 pb-20">
