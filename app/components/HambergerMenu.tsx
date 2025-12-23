@@ -30,6 +30,7 @@ export default function HamburgerMenu() {
       {/* ✅ 上から下にスライドするメニュー */}
 
         <HamburgerMenuEffect open={open}>
+
           <div className="flex flex-col gap-6">
             <Link
               href="#about"
